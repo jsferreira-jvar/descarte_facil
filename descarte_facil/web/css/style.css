@@ -1,0 +1,370 @@
+:root {
+            --primary-color: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --secondary-color: #1976d2;
+            --accent-color: #ff9800;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Loading overlay melhorado */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .logo-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        .loading-overlay h3 {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Navbar moderna */
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+        
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 1rem 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+        
+        /* Cards modernizados */
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card:hover {
+            box-shadow: var(--box-shadow-hover);
+            transform: translateY(-2px);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 1.2rem 1.5rem;
+            font-weight: 600;
+        }
+        
+        /* Mapa melhorado */
+        #map {
+            height: 500px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            border: none;
+        }
+        
+        /* Filtros modernos */
+        .filter-card {
+            position: sticky;
+            top: 20px;
+        }
+        
+        .form-select, .form-control {
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus, .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        
+        /* Botões modernos */
+        .btn {
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+        
+        /* Lista de resultados */
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid var(--medium-gray);
+            padding: 1.2rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+        
+        .list-group-item:hover {
+            background: linear-gradient(90deg, rgba(46, 125, 50, 0.05), rgba(46, 125, 50, 0.02));
+            transform: translateX(5px);
+        }
+        
+        .result-item {
+            cursor: pointer;
+        }
+        
+        .result-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        /* Estatísticas */
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        }
+        
+        .stat-number {
+            font-weight: 700;
+            font-size: 2.2rem;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Ícones de materiais */
+        .material-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .material-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .material-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .material-icon-wrapper.sofa {
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: white;
+        }
+        
+        .material-icon-wrapper.bed {
+            background: linear-gradient(135deg, #2196f3, #64b5f6);
+            color: white;
+        }
+        
+        .material-icon-wrapper.wardrobe {
+            background: linear-gradient(135deg, #ff9800, #ffb74d);
+            color: white;
+        }
+        
+        /* Progress bar */
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+            background-color: var(--medium-gray);
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+        }
+        
+        /* Alert moderno */
+        .alert-warning {
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            border: 1px solid #ffd54f;
+            border-left: 4px solid #ff9800;
+            border-radius: 8px;
+        }
+        
+        /* Footer melhorado */
+        footer {
+            background: linear-gradient(135deg, var(--dark-gray), #343a40);
+            color: white;
+            margin-top: auto;
+        }
+        
+        footer h5, footer h6 {
+            color: white;
+            font-weight: 600;
+        }
+        
+        footer ul li {
+            transition: all 0.3s ease;
+            padding: 0.25rem 0;
+        }
+        
+        footer ul li:hover {
+            transform: translateX(5px);
+            color: var(--primary-light);
+        }
+        
+        /* Modal moderno */
+        .modal-content {
+            border-radius: var(--border-radius);
+            border: none;
+            box-shadow: var(--box-shadow-hover);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            #map {
+                height: 350px;
+            }
+            
+            .material-icon-wrapper {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .card-header {
+                padding: 1rem;
+            }
+        }
+        
+        /* Animações */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Badge colors */
+        .badge-ecoponto {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        }
+        
+        .badge-doacao {
+            background: linear-gradient(135deg, var(--secondary-color), #64b5f6);
+        }
+        
+        .badge-cooperativa {
+            background: linear-gradient(135deg, var(--accent-color), #ffb74d);
+        }
+        
+        /* Legenda do mapa flutuante */
+        .map-legend {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }

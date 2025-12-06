@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descarte Fácil - Guarulhos</title>
+    <meta name="description" content="Encontre onde descartar seus móveis corretamente em Guarulhos. Ecopontos, pontos de doação e cooperativas.">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/ico.jpg" type="image/x-icon">
+   
+</head>
+<body>
+    <!-- Loading Overlay Moderno -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="logo-spinner"></div>
+            <h3>Descarte Fácil</h3>
+            <p>Carregando pontos de coleta...</p>
+        </div>
+    </div>
+    
+    <!-- Navbar Moderna -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="bi bi-recycle"></i>
+                    </div>
+                    <div>
+                        <span>Descarte Fácil</span>
+                        <small class="d-block text-muted" style="font-size: 0.85rem;">Guarulhos</small>
+                    </div>
+                </div>
+            </a>
+            
+            <div class="navbar-text d-none d-lg-block">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mt-4 mb-5">
+        <div class="row">
+            <!-- Coluna Esquerda - Filtros -->
+            <div class="col-lg-4 mb-4">
+                <!-- Card de Filtros -->
+                <div class="card shadow-sm filter-card fade-in">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center">
+                            <i class="bi bi-funnel me-2"></i>
+                            <span>Encontre onde descartar</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold mb-2">O que você quer descartar?</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-box"></i>
+                                </span>
+                                <select id="materialSelect" class="form-select">
+                                    <option value="">Selecione um item...</option>
+                                    <option value="Sofá">Sofá</option>
+                                    <option value="Cama/Colchão">Cama ou Colchão</option>
+                                    <option value="Armário">Armário ou Guarda-roupa</option>
+                                    <option value="Mesa">Mesa</option>
+                                    <option value="Cadeira">Cadeira ou Poltrona</option>
+                                    <option value="Geladeira">Geladeira</option>
+                                    <option value="Televisão">Televisão</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold mb-2">Em qual bairro?</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-geo-alt"></i>
+                                </span>
+                                <select id="bairroSelect" class="form-select">
+                                    <option value="">Todos os bairros</option>
+                                    <!-- Bairros carregados via JS -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold mb-2">Tipo de ponto:</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-tag"></i>
+                                </span>
+                                <select id="tipoSelect" class="form-select">
+                                    <option value="">Todos os tipos</option>
+                                    <option value="ecoponto_oficial">Ecoponto Oficial</option>
+                                    <option value="ponto_doacao">Ponto de Doação</option>
+                                    <option value="cooperativa">Cooperativa</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button id="buscarBtn" class="btn btn-success btn-lg">
+                                <i class="bi bi-search me-2"></i>Buscar Pontos
+                            </button>
+                            <button id="limparBtn" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-clockwise me-2"></i>Limpar Filtros
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Resultados -->
+                <div class="card shadow-sm fade-in">
+                    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-list-check me-2"></i>
+                            <span>Pontos encontrados</span>
+                        </div>
+                        <span class="badge bg-light text-dark fs-6 px-3 py-2" id="contadorPontos">0</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="resultados" class="list-group list-group-flush" style="max-height: 400px; overflow-y: auto;">
+                            <div class="text-center py-5 text-muted">
+                                <i class="bi bi-search display-6 text-muted"></i>
+                                <p class="mt-3 fw-medium">Use os filtros acima para buscar pontos de coleta</p>
+                                <small class="text-muted">Encontre ecopontos, pontos de doação e cooperativas</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card de Estatísticas -->
+                <div class="card shadow-sm stat-card fade-in">
+                    <div class="card-header bg-secondary text-white">
+                        <h6 class="mb-0 d-flex align-items-center">
+                            <i class="bi bi-bar-chart me-2"></i>
+                            <span>Estatísticas</span>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-6 col-sm-3 mb-4">
+                                <div class="stat-number text-success" id="totalPontos">0</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="col-6 col-sm-3 mb-4">
+                                <div class="stat-number text-primary" id="totalEcopontos">0</div>
+                                <div class="stat-label">Ecopontos</div>
+                            </div>
+                            <div class="col-6 col-sm-3 mb-4">
+                                <div class="stat-number text-info" id="totalDoacoes">0</div>
+                                <div class="stat-label">Doações</div>
+                            </div>
+                            <div class="col-6 col-sm-3 mb-4">
+                                <div class="stat-number text-warning" id="totalCooperativas">0</div>
+                                <div class="stat-label">Cooperativas</div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <small class="fw-medium">Pontos verificados</small>
+                                <small class="fw-medium" id="percentualVerificados">0%</small>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" id="progressVerificados" role="progressbar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Direita - Mapa e Conteúdo -->
+            <div class="col-lg-8">
+                <!-- Mapa -->
+                <div class="card shadow-sm fade-in">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 d-flex align-items-center">
+                            <i class="bi bi-map me-2"></i>
+                            <span>Mapa de pontos de coleta</span>
+                        </h5>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-light btn-sm" id="zoomInBtn" title="Aproximar">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                            <button type="button" class="btn btn-light btn-sm" id="zoomOutBtn" title="Afastar">
+                                <i class="bi bi-dash-lg"></i>
+                            </button>
+                            <button type="button" class="btn btn-light btn-sm" id="locateBtn" title="Minha localização">
+                                <i class="bi bi-geo-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0 position-relative">
+                        <div id="map"></div>
+                        <div class="position-absolute bottom-0 end-0 m-3">
+                            <div class="map-legend">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge badge-ecoponto me-2" style="width: 12px; height: 12px;"></span>
+                                    <small class="fw-medium">Ecoponto</small>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge badge-doacao me-2" style="width: 12px; height: 12px;"></span>
+                                    <small class="fw-medium">Doação</small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="badge badge-cooperativa me-2" style="width: 12px; height: 12px;"></span>
+                                    <small class="fw-medium">Cooperativa</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Como funciona -->
+                <div class="card shadow-sm fade-in">
+                    <div class="card-body">
+                        <h5 class="text-primary mb-4 d-flex align-items-center">
+                            <i class="bi bi-question-circle me-2"></i>
+                            <span>Como funciona o descarte correto?</span>
+                        </h5>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="material-card">
+                                    <div class="material-icon-wrapper sofa">
+                                        <i class="bi bi-1-circle"></i>
+                                    </div>
+                                    <h6 class="fw-bold mb-2">1. Separe o item</h6>
+                                    <p class="text-muted small mb-0">
+                                        Verifique se o móvel está em condições de uso, precisa de reparos ou deve ser reciclado.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="material-card">
+                                    <div class="material-icon-wrapper bed">
+                                        <i class="bi bi-2-circle"></i>
+                                    </div>
+                                    <h6 class="fw-bold mb-2">2. Escolha o local</h6>
+                                    <p class="text-muted small mb-0">
+                                        Use nosso mapa para encontrar o ponto de coleta mais próximo do seu bairro.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="material-card">
+                                    <div class="material-icon-wrapper wardrobe">
+                                        <i class="bi bi-3-circle"></i>
+                                    </div>
+                                    <h6 class="fw-bold mb-2">3. Descarte corretamente</h6>
+                                    <p class="text-muted small mb-0">
+                                        Respeite horários e regras específicas de cada ponto de coleta.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-4">
+                            <div class="d-flex align-items-start">
+                                <i class="bi bi-exclamation-triangle fs-4 me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="alert-heading fw-bold mb-2">Atenção importante!</h6>
+                                    <p class="mb-0">
+                                        O descarte irregular em terrenos baldios, ruas ou áreas públicas 
+                                        é crime ambiental (Lei nº 9.605/98) e pode resultar em multas de até R$ 50 milhões. 
+                                        Além de prejudicar o meio ambiente, atrai animais e insetos, comprometendo a saúde pública.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: O que pode ser descartado -->
+                <div class="card shadow-sm fade-in">
+                    <div class="card-body">
+                        <h5 class="text-success mb-4 d-flex align-items-center">
+                            <i class="bi bi-recycle me-2"></i>
+                            <span>O Que Pode Ser Descartado?</span>
+                        </h5>
+                        
+                        <div class="row g-3" id="materiaisLista">
+                            <!-- Materiais carregados via JS -->
+                            <div class="col-12 text-center py-5">
+                                <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;">
+                                    <span class="visually-hidden">Carregando...</span>
+                                </div>
+                                <p class="mt-3 fw-medium">Carregando lista de materiais...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Detalhes Moderno -->
+    <div class="modal fade" id="pontoModal" tabindex="-1" aria-labelledby="pontoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title fw-bold" id="modalTitulo">
+                            <i class="bi bi-info-circle me-2"></i> Detalhes do Ponto
+                        </h5>
+                        <span class="badge" id="modalBadge">Ecoponto</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body p-4" id="modalCorpo">
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-lg me-1"></i> Fechar
+                    </button>
+                    <button type="button" class="btn btn-success" id="modalRotaBtn">
+                        <i class="bi bi-signpost me-1"></i> Ver Rota
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé Moderno -->
+    <footer class="py-4 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="logo-icon me-3">
+                            <i class="bi bi-recycle"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-0">Descarte Fácil Guarulhos</h5>
+                            <small class="text-light opacity-75">Sistema de conscientização ambiental</small>
+                        </div>
+                    </div>
+                    <p class="small opacity-75 mb-0">
+                        Projeto comunitário sem fins lucrativos desenvolvido para promover 
+                        a conscientização ambiental e facilitar o descarte correto em Guarulhos.
+                    </p>
+                </div>
+                
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Contatos úteis</h6>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="d-flex align-items-start mb-2">
+                                <i class="bi bi-telephone text-success me-2 mt-1"></i>
+                                <div>
+                                    <small class="fw-bold d-block">Disque Limpeza</small>
+                                    <small class="opacity-75">(11) 2475-8651</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-start mb-2">
+                                <i class="bi bi-whatsapp text-success me-2 mt-1"></i>
+                                <div>
+                                    <small class="fw-bold d-block">WhatsApp</small>
+                                    <small class="opacity-75">(11) 2414-0451</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-start mb-2">
+                                <i class="bi bi-building text-success me-2 mt-1"></i>
+                                <div>
+                                    <small class="fw-bold d-block">Prefeitura</small>
+                                    <small class="opacity-75">(11) 2475-8600</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-start">
+                                <i class="bi bi-shield-check text-success me-2 mt-1"></i>
+                                <div>
+                                    <small class="fw-bold d-block">Defesa Civil</small>
+                                    <small class="opacity-75">199 (Emergências)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Apoie o projeto</h6>
+                    <p class="small opacity-75 mb-3">
+                        Este projeto é mantido pela comunidade. 
+                        Compartilhe com seus vizinhos e ajude a manter nossa cidade limpa!
+                    </p>
+                </div>
+            </div>
+            
+            <hr class="my-4 opacity-25">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="small mb-0 opacity-75">
+                        © 2025 Descarte Fácil Guarulhos. Dados fornecidos pela Prefeitura de Guarulhos.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex justify-content-md-end gap-3">
+                        <a href="termos.html" class="text-light opacity-75 hover-opacity-100" style="text-decoration: none;">
+                            <small>Termos de uso</small>
+                        </a>
+                        <a href="privacidade.html" class="text-light opacity-75 hover-opacity-100" style="text-decoration: none;">
+                            <small>Política de privacidade</small>
+                        </a>
+                        <a href="contribuir.html" class="text-light opacity-75 hover-opacity-100" style="text-decoration: none;">
+                            <small>Contribuir</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/app.js" defer></script>
+
+    <!-- Script de inicialização -->
+    <script>
+        // Configuração global atualizada
+        window.appConfig = {
+            apiUrl: 'http://127.0.0.1:8001/api', // Usando sua nova porta
+            mapCenter: [-23.44, -46.53],
+            mapZoom: 12,
+            cacheDuration: 5
+        };
+        
+        // Esconder loading após 2 segundos
+        setTimeout(() => {
+            const loading = document.getElementById('loadingOverlay');
+            if (loading) {
+                loading.classList.add('hidden');
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }
+        }, 2000);
+        
+        // Controles do mapa
+        document.addEventListener('DOMContentLoaded', function() {
+            // Botão de limpar filtros
+            document.getElementById('limparBtn')?.addEventListener('click', function() {
+                document.getElementById('materialSelect').value = '';
+                document.getElementById('bairroSelect').value = '';
+                document.getElementById('tipoSelect').value = '';
+                if (window.app && window.app.buscarPontos) {
+                    window.app.buscarPontos();
+                }
+            });
+            
+            // Zoom controls
+            document.getElementById('zoomInBtn')?.addEventListener('click', function() {
+                if (window.app && window.app.map) {
+                    window.app.map.zoomIn();
+                }
+            });
+            
+            document.getElementById('zoomOutBtn')?.addEventListener('click', function() {
+                if (window.app && window.app.map) {
+                    window.app.map.zoomOut();
+                }
+            });
+            
+            // Localização
+            document.getElementById('locateBtn')?.addEventListener('click', function() {
+                if (navigator.geolocation && window.app && window.app.map) {
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            window.app.map.setView(
+                                [position.coords.latitude, position.coords.longitude], 
+                                15
+                            );
+                        },
+                        function(error) {
+                            console.log('Erro ao obter localização:', error);
+                        }
+                    );
+                }
+            });
+        });
+        
+        // Efeito hover nos cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

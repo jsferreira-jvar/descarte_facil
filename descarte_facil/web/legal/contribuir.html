@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Contribuir - Descarte Fácil Guarulhos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --accent-color: #ff9800;
+        }
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            padding-top: 80px;
+        }
+        
+        .contribute-header {
+            background: linear-gradient(135deg, var(--accent-color), #f57c00);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .contribute-content {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .section-title {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contribute-card {
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            height: 100%;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .contribute-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.15);
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .icon-volunteer {
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: white;
+        }
+        
+        .icon-report {
+            background: linear-gradient(135deg, #2196f3, #64b5f6);
+            color: white;
+        }
+        
+        .icon-share {
+            background: linear-gradient(135deg, #ff9800, #ffb74d);
+            color: white;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, var(--accent-color), #f57c00);
+            border: none;
+            padding: 0.75rem 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .contribute-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn btn btn-outline-light">
+        <i class="bi bi-arrow-left"></i> Voltar
+    </a>
+
+    <header class="contribute-header text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="bi bi-heart me-2"></i>Como Contribuir
+            </h1>
+            <p class="lead mb-0">Junte-se a nós para tornar Guarulhos mais limpa</p>
+        </div>
+    </header>
+
+    <main class="container mb-5">
+        <div class="contribute-content">
+            <div class="alert alert-success">
+                <i class="bi bi-people me-2"></i>
+                Este é um projeto comunitário. Sua contribuição faz a diferença!
+            </div>
+
+            <h2 class="section-title">Faça Parte da Mudança</h2>
+            <p class="lead mb-4">O Descarte Fácil Guarulhos é mantido por voluntários. Existem várias formas de contribuir:</p>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card contribute-card h-100">
+                        <div class="card-body p-4">
+                            <div class="card-icon icon-volunteer mx-auto">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+                            <h4 class="text-center mb-3">Reportar Pontos</h4>
+                            <p>Conhece um ecoponto, ponto de doação ou cooperativa que não está em nosso mapa?</p>
+                            <ul>
+                                <li>Novos pontos de coleta</li>
+                                <li>Endereços atualizados</li>
+                                <li>Horários de funcionamento</li>
+                                <li>Condições especiais</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card contribute-card h-100">
+                        <div class="card-body p-4">
+                            <div class="card-icon icon-report mx-auto">
+                                <i class="bi bi-megaphone"></i>
+                            </div>
+                            <h4 class="text-center mb-3">Divulgar</h4>
+                            <p>Ajude a espalhar a conscientização sobre descarte correto:</p>
+                            <ul>
+                                <li>Compartilhe nas redes sociais</li>
+                                <li>Converse com vizinhos</li>
+                                <li>Divulgue em grupos comunitários</li>
+                                <li>Oriente sobre descarte correto</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card contribute-card h-100">
+                        <div class="card-body p-4">
+                            <div class="card-icon icon-share mx-auto">
+                                <i class="bi bi-code-slash"></i>
+                            </div>
+                            <h4 class="text-center mb-3">Desenvolver</h4>
+                            <p>É desenvolvedor ou designer? Contribua com o projeto:</p>
+                            <ul>
+                                <li>Melhorias no código</li>
+                                <li>Sugestões de design</li>
+                                <li>Novas funcionalidades</li>
+                                <li>Traduções</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Reportar um Novo Ponto</h2>
+            <p>Preencha o formulário abaixo para sugerir um novo ponto de coleta:</p>
+            
+            <form id="contribuirForm" class="mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nomePonto" class="form-label fw-bold">Nome do Ponto *</label>
+                            <input type="text" class="form-control" id="nomePonto" required 
+                                   placeholder="Ex: Ecoponto Centro">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="tipoPonto" class="form-label fw-bold">Tipo de Ponto *</label>
+                            <select class="form-select" id="tipoPonto" required>
+                                <option value="">Selecione...</option>
+                                <option value="ecoponto_oficial">Ecoponto Oficial</option>
+                                <option value="ponto_doacao">Ponto de Doação</option>
+                                <option value="cooperativa">Cooperativa</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="endereco" class="form-label fw-bold">Endereço Completo *</label>
+                    <input type="text" class="form-control" id="endereco" required 
+                           placeholder="Ex: Rua João da Silva, 123 - Centro">
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="horario" class="form-label fw-bold">Horário de Funcionamento</label>
+                            <input type="text" class="form-control" id="horario" 
+                                   placeholder="Ex: Segunda a Sexta, 8h às 17h">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="telefone" class="form-label fw-bold">Telefone</label>
+                            <input type="tel" class="form-control" id="telefone" 
+                                   placeholder="(11) 99999-9999">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="materiais" class="form-label fw-bold">Materiais Aceitos</label>
+                    <textarea class="form-control" id="materiais" rows="3" 
+                              placeholder="Ex: Sofás, camas, armários, eletrodomésticos..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="observacoes" class="form-label fw-bold">Observações</label>
+                    <textarea class="form-control" id="observacoes" rows="3" 
+                              placeholder="Informações adicionais sobre o ponto..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="seuEmail" class="form-label fw-bold">Seu E-mail (opcional)</label>
+                    <input type="email" class="form-control" id="seuEmail" 
+                           placeholder="nome@exemplo.com">
+                    <small class="text-muted">Usaremos apenas para confirmar sua sugestão.</small>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <button type="reset" class="btn btn-outline-secondary me-md-2">
+                        <i class="bi bi-x-circle me-1"></i> Limpar
+                    </button>
+                    <button type="submit" class="btn btn-submit text-white">
+                        <i class="bi bi-send me-1"></i> Enviar Sugestão
+                    </button>
+                </div>
+            </form>
+            
+            <div id="formMessage" class="mt-3" style="display: none;"></div>
+
+            <h2 class="section-title mt-5">Outras Formas de Ajudar</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card border-light h-100">
+                        <div class="card-body">
+                            <h5 class="d-flex align-items-center">
+                                <i class="bi bi-chat-text text-success me-2"></i>
+                                Feedback
+                            </h5>
+                            <p>Envie sugestões de melhorias, reporte bugs ou compartilhe ideias.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-light h-100">
+                        <div class="card-body">
+                            <h5 class="d-flex align-items-center">
+                                <i class="bi bi-translate text-primary me-2"></i>
+                                Tradução
+                            </h5>
+                            <p>Ajudar a traduzir o site para outros idiomas ou melhorar a redação.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-github me-2"></i>
+                <strong>Projeto no GitHub:</strong> 
+                <a href="https://github.com/seu-usuario/descarte-facil" class="alert-link" target="_blank">
+                    github.com/seu-usuario/descarte-facil
+                </a>
+                <p class="mb-0 mt-2">Código aberto para colaboração da comunidade.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-2">© 2025 Descarte Fácil Guarulhos. Juntos por uma cidade mais limpa.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="termos.html" class="text-light text-decoration-none">Termos de Uso</a>
+                <span class="text-light">•</span>
+                <a href="privacidade.html" class="text-light text-decoration-none">Política de Privacidade</a>
+                <span class="text-light">•</span>
+                <a href="contribuir.html" class="text-light text-decoration-none">Contribuir</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('contribuirForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulação de envio
+            const messageDiv = document.getElementById('formMessage');
+            messageDiv.style.display = 'block';
+            messageDiv.className = 'alert alert-success';
+            messageDiv.innerHTML = `
+                <i class="bi bi-check-circle me-2"></i>
+                <strong>Obrigado pela contribuição!</strong> 
+                Sua sugestão foi recebida e será analisada pela nossa equipe.
+            `;
+            
+            // Limpar formulário
+            this.reset();
+            
+            // Rolar para a mensagem
+            messageDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
